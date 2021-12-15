@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+
+<div class="post">
+    <h1>{{post.title}}</h1>
+    <p>{{post.text|linebreaksbr}}</p><br/>
+    {% if post.published_date %}
+        <div class="date">{{post.published_date}}</div><br/>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'blog:post_edit' pk=post.id %}" class="btn btn-success btn-sm">Modify</a>
+        <a href="{% url 'blog:post_delete' pk=post.id %}" class="btn btn-danger btn-sm">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}
